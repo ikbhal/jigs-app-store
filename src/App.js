@@ -1,23 +1,51 @@
 import logo from './logo.svg';
 import './App.css';
+import {useState} from 'react';
 
-function App() {
+function AppStore() {
+
+  var [appNameList,setAppNameList] = useState(["Whatapp", "Youtube","Amazon"]);
+
+  const addApp = () =>{
+    let appName = prompt("Please enter app name", "Jigs");
+
+    var newAppNameList = [... appNameList] ; 
+    newAppNameList.push(appName);
+
+    setAppNameList(newAppNameList);
+
+  }
+
+  const deleteApp = (index) => {
+    var newAppNameList = [... appNameList] ;
+    newAppNameList.splice(index,1);
+    setAppNameList(newAppNameList);
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+      <h1>JIGS App Store</h1>
+
+      <button onClick={addApp}>Add</button>
+
+      {
+        appNameList.map((name, index) => 
+        
         <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+          
+          {index} {name}
+          <button onClick={e => deleteApp(index)}> Delete </button>
+         </p>)
+      }
+    </div>
+  );
+}
+
+
+function App(){
+
+  return (
+    <div>
+      <AppStore/>
     </div>
   );
 }
